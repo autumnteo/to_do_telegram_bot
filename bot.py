@@ -18,7 +18,7 @@ class telegram_chatbot():
         if offset:
             url = url + "&offset={}".format(offset + 1)
         r = requests.get(url)
-        return json.loads(r.content)
+        return json.loads(r.content.decode('utf-8'))
 
     def send_message(self, msg, chat_id, reply_markup=None):
         url = self.base + "sendMessage?chat_id={}&text={}".format(chat_id, msg)
@@ -53,7 +53,7 @@ class telegram_chatbot():
             db.add_item(text, chat)
             items.append(text)
             items = [item.title() for item in items]
-            new_item_list = [f'{index}. {elm}' for index, elm in enumerate(items, start=1)]
+            new_item_list = ["{}. {}".format(index,elm) for index, elm in enumerate(items, start=1)]
             message = "The current items in your To Do List are:\n"
             message += "\n".join(new_item_list)
             self.send_message(message, chat)

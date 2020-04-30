@@ -1,2 +1,5 @@
 config.cfg
 *.sqlite
+*.pem
+*.ppk
+*.docx
